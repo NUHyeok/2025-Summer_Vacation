@@ -14,12 +14,15 @@ class User:
             self.say_hello()
         else:
             print("로그인 실패, 없는 아이디거나 잘못된 비밀번호입니다.")
+            
+    def __str__(self):
+        return f"사용자 : {self.name}, 이메일 : {self.email}"
 
 user1 = User("강영훈", "younghoon@codeit.xyz", "12345")
 user2 = User("이윤수", "yoonsoo@codeit.xyz", "abcde") # 클래스로 부터 파생된 객체를 인스턴스라고 부름. 
 
-print(user1.name, user1.email, user1.passward)
-print(user2.name, user2.email, user2.passward)
+print(user1)
+print(user2)
 
 
 

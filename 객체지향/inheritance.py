@@ -1,7 +1,7 @@
-# »ó¼Ó -> Áßº¹µÇ´Â ÄÚµåÀÇ ¹®Á¦¸¦ ÇØ°á
+# ìƒì† -> ì¤‘ë³µë˜ëŠ” ì½”ë“œì˜ ë¬¸ì œë¥¼ í•´ê²°
 class Employee:
-    """Á÷¿ø Å¬·¡½º"""
-    company_name = "ÄÚµåÀÕ ¹ö°Å"
+    """ì§ì› í´ë˜ìŠ¤"""
+    company_name = "ì½”ë“œì‡ ë²„ê±°"
     raise_percentage = 1.03
     
     def __init__(self, name, wage):
@@ -9,56 +9,55 @@ class Employee:
         self.wage = wage
     
     def raise_pay(self):
-        """½Ã±ŞÀ» ÀÎ»óÇÑ´Ù."""
+        """ì‹œê¸‰ì„ ì¸ìƒí•œë‹¤."""
         self *= self.raise_percentage
     
-class Cashier(Employee): # ºÎ¸ğ Å¬·¡½º : Employee / ÀÚ½Ä Å¬·¡½º : Cashier
-    """°è»ê´ë ¼ö³³¿ø Å¬·¡½º"""
+class Cashier(Employee): # ë¶€ëª¨ í´ë˜ìŠ¤ : Employee / ìì‹ í´ë˜ìŠ¤ : Cashier
+    """ê³„ì‚°ëŒ€ ìˆ˜ë‚©ì› í´ë˜ìŠ¤"""
     burger_price = 4000
     
     def __init__(self, name, wage, number_sold = 0):
         # Employee.__init__(self, name, wage)
-        super.__init__(name, wage) # self¸¦ ³Ñ°ÜÁÙ ÇÊ¿ä°¡ ¾øÀ½.
+        super().__init__(name, wage) # selfë¥¼ ë„˜ê²¨ì¤„ í•„ìš”ê°€ ì—†ìŒ.
         self.number_sold = number_sold
     
     
     def take_order(self, money_received):
-        """ÁÖ¹®°ú µ·À» ¹Ş°í °Å½º¸§µ·À» ¸®ÅÏÇÑ´Ù."""
+        """ì£¼ë¬¸ê³¼ ëˆì„ ë°›ê³  ê±°ìŠ¤ë¦„ëˆì„ ë¦¬í„´í•œë‹¤."""
         if Cashier.burger_price > money_received:
-            print("µ·ÀÌ ÃæºĞÇÏÁö ¾Ê½À´Ï´Ù.")
+            print("ëˆì´ ì¶©ë¶„í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.")
             return money_received
         else:
             self.number_sold += 1
             return money_received - Cashier.burger_price
     
     def __str__(self):
-        return Cashier.company_name + "°è»ê´ë Á÷¿ø :" + self.name
+        return Cashier.company_name + "ê³„ì‚°ëŒ€ ì§ì› :" + self.name
 
-class DeliveryMan:
-    """¹è´Ş¿ø Å¬·¡½º"""
-    company_name = "ÄÚµåÀÕ ¹ö°Å"
-    raise_percentage = 1.03
+class DeliveryMan(Employee):
+    """ë°°ë‹¬ì› í´ë˜ìŠ¤"""
     
     def __init__(self, name, wage, on_standby):
-        self.name = name
-        self.wage = wage
+        super().__init__(name, wage)
         self.on_standby = on_standby
     
-    def raise_pay(self):
-        """½Ã±ŞÀ» ÀÎ»óÇÑ´Ù."""
-        self.wage *= DeliveryMan.raise_percentage
-    
     def deliver_to(self, address):
-        """¹è´Ş¿øÀÌ ´ë±âÁßÀÌ¸é ÁÖ¾îÁø ÁÖ¼Ò·Î ¹è´ŞÀ» º¸³»°í ¾Æ´Ï¸é ¼³¸í ¸Ş½ÃÁö¸¦ Ãß°¡ÇÑ´Ù."""
+        """ë°°ë‹¬ì›ì´ ëŒ€ê¸°ì¤‘ì´ë©´ ì£¼ì–´ì§„ ì£¼ì†Œë¡œ ë°°ë‹¬ì„ ë³´ë‚´ê³  ì•„ë‹ˆë©´ ì„¤ëª… ë©”ì‹œì§€ë¥¼ ì¶”ê°€í•œë‹¤."""
         if self.on_standby:
-            print(address + "·Î ¹è´Ş ³ª°©´Ï´Ù!")
+            print(address + "ë¡œ ë°°ë‹¬ ë‚˜ê°‘ë‹ˆë‹¤!")
             self.on_standby = False
         else:
-            print("ÀÌ¹Ì ¹è´ŞÇÏ·¯ ³ª°¬½À´Ï´Ù!")
+            print("ì´ë¯¸ ë°°ë‹¬í•˜ëŸ¬ ë‚˜ê°”ìŠµë‹ˆë‹¤!")
     
     def return_from_delivery(self):
-        """¹è´Ş¿øÀÇ º¹±Í¸¦ Ã³¸®ÇÑ´Ù."""
+        """ë°°ë‹¬ì›ì˜ ë³µê·€ë¥¼ ì²˜ë¦¬í•œë‹¤."""
         self.on_standby = True
     
     def __str__(self):
-        return DeliveryMan.company_name + "¹è´Ş¿ø : " + self.name
+        return DeliveryMan.company_name + "ë°°ë‹¬ì› : " + self.name
+    
+print(Cashier.mro())
+    
+cashier = Cashier("ê°•ì˜í›ˆ", 8900, 4)
+    
+print(isinstance(cashier, Employee)) # ì²«ë²ˆì§¸ ë³€ìˆ˜ê°€ ë‘ë²ˆì§¸ ë³€ìˆ˜ì˜ ì¸ìŠ¤í„´ìŠ¤ì¸ì§€ë¥¼ ë¶ˆë¦°í˜•ìœ¼ë¡œ ë‚˜íƒ€ëƒ„.

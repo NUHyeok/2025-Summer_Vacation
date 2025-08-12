@@ -83,28 +83,67 @@ class SportsCar(Vehicle):
     def __str__(self):
         return f"이 스포츠카는 현재 {self._speed}km/h로 주행 중입니다."
 
+class DrivingSimulator:
+    def __init__(self):
+        """교통 수단 인스턴스들을 담을 리스트를 변수로 갖는다"""
+        self.list = []
+
+    def add_vehicle(self, new_vehicle):
+        """교통 수단 인스턴스들만 시뮬레이터에 추가될 수 있게 한다"""
+        if isinstance(new_vehicle, Vehicle):
+            self.list.append(new_vehicle)
+        else:
+            print(f"{new_vehicle}은 교통 수단이 아니기 때문에 추가할 수 없습니다.")
+
+    def start_all_vehicles(self):
+        """모든 교통 수단을 주행 시작시킨다"""
+        print("모든 교통 수단을 주행 시작시킵니다! \n")
+        for vehicle in self.list:
+            vehicle.start()
+            
+
+    def stop_all_vehicles(self):
+        """모든 교통 수단을 주행 정지시킨다"""
+        print("모든 교통 수단을 주행 정지시킵니다!\n")
+        for vehicle in self.list:
+            vehicle.stop()
+
+    def __str__(self):
+        """갖고 있는 교통 수단들의 현재 속도를 문자열로 리턴한다"""
+        result = ""
+        for vehicle in self.list:
+            result += str(vehicle) + "\n"
+        return result
+            
+
 
 # 자전거 인스턴스
-bicycle = Bicycle(0)        
-    
-# 일반 자동차 인스턴스
-car = NormalCar(0, 100)
+bicycle = Bicycle(0)
 
-# 스포츠카 인스턴스
-sports_car = SportsCar(0, 200)
+# 일반 자동차 인스턴스들
+car_1 = NormalCar(0, 100)
+car_2 = NormalCar(0, 120)
 
-# 정의한 인스턴스들을 모두 주행 시작시킨다
-bicycle.start()
-car.start()
-sports_car.start()
+# 스포츠카 인스턴스들
+sports_car_1 = SportsCar(0, 200)
+sports_car_2 = SportsCar(0, 190)
 
-# 자전거의 속도를 출력한다
-print(bicycle)
 
-# 자전거만 주행을 멈춰준다
-bicycle.stop()
+# 주행 시뮬레이터 인스턴스
+driving_simulator = DrivingSimulator()
 
-# 결과 값을 출력한다
-print(bicycle)
-print(car)
-print(sports_car)
+# 교통 수단 인스턴스들을 주행 시뮬레이터에 추가한다
+driving_simulator.add_vehicle(bicycle)
+driving_simulator.add_vehicle(car_1)
+driving_simulator.add_vehicle(car_2)
+driving_simulator.add_vehicle(sports_car_1)
+driving_simulator.add_vehicle(sports_car_2)
+driving_simulator.add_vehicle(1)
+
+# 시뮬레이터 내 모든 인스턴스들을 주행 시작시킨다
+driving_simulator.start_all_vehicles()
+print(driving_simulator)
+
+# 시뮬레이터 내 모든 인스턴스들을 주행 정지시킨다
+driving_simulator.stop_all_vehicles()
+print(driving_simulator)

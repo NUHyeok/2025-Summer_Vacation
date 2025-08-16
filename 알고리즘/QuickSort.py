@@ -1,64 +1,46 @@
 # 두 요소의 위치를 바꿔주는 helper function
 def swap_elements(my_list, index1, index2):
-    # 지난 실습의 코드를 여기에 붙여 넣으세요
     temp = my_list[index1]
     my_list[index1] = my_list[index2]
     my_list[index2] = temp
 
-
-    
 # 퀵 정렬에서 사용되는 partition 함수
 def partition(my_list, start, end):
-    # 지난 실습의 코드를 여기에 붙여 넣으세요
-    
-    if start == end:
-        return my_list
-    
+    # 리스트 값 확인과 기준점 이하 값들의 위치 확인을 위한 변수 정의
+    i = start
     b = start
-    pivot = my_list[end]
-    
-    
-    for i in range(start, end):
-        if my_list[i] <= pivot:
+    p = end
+
+    # 범위안의 모든 값들을 볼 때까지 반복문을 돌린다
+    while i < p:
+        # i 인덱스의 값이 기준점보다 작으면 i와 b 인덱스에 있는 값들을 교환하고 b를 1 증가 시킨다
+        if my_list[i] <= my_list[p]:
             swap_elements(my_list, i, b)
             b += 1
-    
-    swap_elements(my_list, b, end)
-    
-    #if start < b-1:
-    #   partition(my_list, start, b-1)
-        
-    #if b+1 < end:
-    #    partition(my_list, b+1, end)
-        
-    return b
+        i += 1
 
-    
+    # b와 기준점인 p 인덱스에 있는 값들을 바꿔준다
+    swap_elements(my_list, b, p)
+    p = b
+
+    # pivot의 최종 인덱스를 리턴해 준다
+    return p
+
 # 퀵 정렬
 def quicksort(my_list, start, end):
-    # 여기에 코드를 작성하세요
-        
-    if start == end:
-        return my_list
-    
-    b = start
-    pivot = my_list[end]
-    
-    
-    for i in range(start, end):
-        if my_list[i] <= pivot:
-            swap_elements(my_list, i, b)
-            b += 1
-    
-    swap_elements(my_list, b, end)
-    
-    if start < b-1:
-       quicksort(my_list, start, b-1)
-        
-    if b+1 < end:
-        quicksort(my_list, b+1, end)
-    
-    return my_list
+    # base case
+    if end - start < 1:
+        return
+
+    # my_list를 두 부분으로 나누어주고,
+    # partition 이후 pivot의 인덱스를 리턴받는다
+    pivot = partition(my_list, start, end)
+
+    # pivot의 왼쪽 부분 정렬
+    quicksort(my_list, start, pivot - 1)
+
+    # pivot의 오른쪽 부분 정렬
+    quicksort(my_list, pivot + 1, end)
 
 
 # 테스트 코드 1
